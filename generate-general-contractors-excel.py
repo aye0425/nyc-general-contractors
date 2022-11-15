@@ -14,8 +14,6 @@ import glob as gl
 from bs4 import BeautifulSoup
 from os import chdir
 from pathlib import Path
-from requests.adapters import HTTPAdapter
-from openpyxl import Workbook, load_workbook
 
 chdir(Path(__file__).parent.absolute())
 
@@ -91,7 +89,6 @@ logger.setLevel(logging.INFO)
 # Modules
 def consolidate_csv():
   filenames = sorted([i for i in gl.glob('./cvs-results/*.csv')])
-  print(filenames)
 
   writer = pd.ExcelWriter(wb_file, engine='xlsxwriter')
   
@@ -225,7 +222,7 @@ def main():
       
     df = pd.DataFrame(licensee_array, columns=columns)
     
-    Path('/cvs-results').mkdir(parents=True, exist_ok=True)
+    Path('./cvs-results').mkdir(parents=True, exist_ok=True)
 
     df.to_csv('./cvs-results/' + params['licname'] + '.csv', index=False)
 
